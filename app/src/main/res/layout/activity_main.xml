@@ -11,4 +11,17 @@
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </FrameLayout>
+
+    <include
+        layout="@layout/botton_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="56dp" />
 </LinearLayout>
