@@ -1,10 +1,22 @@
 package com.app.instagram.model;
 
+import com.app.instagram.helper.ConfiguracaoFirebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
+
 public class Usuario {
 
-    private String nome, email, senha, caminhofoto;
+    private String nome, email, senha, caminhofoto, id;
 
     public Usuario() {
+    }
+
+    public void salvar(){
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
+        DatabaseReference usuariosRef = firebaseRef.child("usuarios").child(getId());
+
+        usuariosRef.setValue(this);
+
     }
 
     public String getNome() {
@@ -23,6 +35,7 @@ public class Usuario {
         this.email = email;
     }
 
+    @Exclude
     public String getSenha() {
         return senha;
     }
@@ -37,5 +50,13 @@ public class Usuario {
 
     public void setCaminhofoto(String caminhofoto) {
         this.caminhofoto = caminhofoto;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
