@@ -19,20 +19,20 @@
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imagePerfilEditar"
+            android:id="@+id/imageEditarPerfil"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:src = "@drawable/avatar"/>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textAlterarFoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Alterar Foto" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/editNomeEditarPerfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_person_black_24dp"
@@ -41,7 +41,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editEmailEditarPerfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_email_black_24dp"
@@ -50,7 +50,7 @@
             android:inputType="textEmailAddress" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonEditarPerfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Salvar Alterações" />

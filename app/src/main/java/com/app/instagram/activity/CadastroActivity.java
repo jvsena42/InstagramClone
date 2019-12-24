@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.app.instagram.R;
 import com.app.instagram.helper.ConfiguracaoFirebase;
+import com.app.instagram.helper.UsuarioFirebase;
 import com.app.instagram.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -82,6 +83,9 @@ public class CadastroActivity extends AppCompatActivity {
                                 String idUsuario = task.getResult().getUser().getUid();
                                 usuario.setId(idUsuario);
                                 usuario.salvar();
+
+                                //Salvar dados no profile do firebase
+                                UsuarioFirebase.atualizarNomeUsuario(usuario.getNome());
 
                                 Toast.makeText(CadastroActivity.this,"Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
