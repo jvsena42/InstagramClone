@@ -4,6 +4,9 @@ import com.app.instagram.helper.ConfiguracaoFirebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Usuario {
 
     private String nome, email, senha, caminhofoto, id;
@@ -17,6 +20,24 @@ public class Usuario {
 
         usuariosRef.setValue(this);
 
+    }
+
+    public void atualizar(){
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
+        DatabaseReference usuariosRef = firebaseRef.child("usuarios").child(getId());
+        Map<String,Object> valoresUsuario = converterParaMap();
+        usuariosRef.updateChildren(valoresUsuario);
+    }
+
+    public Map<String,Object> converterParaMap(){
+
+        HashMap<String,Object> usuarioMap = new HashMap<>();
+        usuarioMap.put("email",getEmail());
+        usuarioMap.put("nome",getNome());
+        usuarioMap.put("id",getId());
+        usuarioMap.put("caminhoFoto",getCaminhofoto());
+
+        return usuarioMap;
     }
 
     public String getNome() {

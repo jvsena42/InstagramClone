@@ -50,7 +50,7 @@
             android:inputType="textEmailAddress" />
 
         <Button
-            android:id="@+id/buttonEditarPerfil"
+            android:id="@+id/buttonSalvarAlteracoes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Salvar Alterações" />

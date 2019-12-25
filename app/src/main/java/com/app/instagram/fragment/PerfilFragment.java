@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -50,7 +49,7 @@ public class PerfilFragment extends Fragment {
         textPublicacoes = view.findViewById(R.id.textPublicacoes);
         textSeguidores = view.findViewById(R.id.textSeguidores);
         textSeguindo = view.findViewById(R.id.textSeguindo);
-        buttonEditarPerfil = view.findViewById(R.id.buttonEditarPerfil);
+        buttonEditarPerfil = view.findViewById(R.id.buttonSalvarAlteracoes);
 
         //Abrir a edição de perfil
         buttonEditarPerfil.setOnClickListener(new View.OnClickListener() {
