@@ -20,13 +20,19 @@ import com.app.instagram.R;
 import com.app.instagram.helper.ConfiguracaoFirebase;
 import com.app.instagram.helper.UsuarioFirebase;
 import com.app.instagram.model.Usuario;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.net.URL;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -39,6 +45,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private Usuario usuarioLogado;
     private StorageReference storageRef;
     private static final int SELECAO_GALERIA = 200;
+    private String identificadorUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         //Configurações iniciais
         usuarioLogado = UsuarioFirebase.getDadosUsuarioLogado();
         storageRef = ConfiguracaoFirebase.getFirebaseStorage();
+        identificadorUsuario = UsuarioFirebase.getIdUsuario();
 
         //Configurar Toolbar
         Toolbar toolbar = findViewById(R.id.toolbarPrincipal);
@@ -65,6 +73,13 @@ public class EditarPerfilActivity extends AppCompatActivity {
         final FirebaseUser usuarioPerfil = UsuarioFirebase.getUsuarioAtual();
         editEmailPerfil.setText(usuarioPerfil.getEmail());
         editNomePerfil.setText(usuarioPerfil.getDisplayName());
+
+        Uri url = usuarioPerfil.getPhotoUrl();
+        if (url != null){
+            Glide.with(EditarPerfilActivity.this).load(url).into(imageEditarPerfil);
+        }else {
+            imageEditarPerfil.setImageResource(R.drawable.avatar);
+        }
 
         //Salvar alterações no nome
         buttonSalvarAlteracoes.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +136,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
                     byte[] dadosImagem = baos.toByteArray();
 
                     //Salvar imagem para o firebase Storage
-                    StorageReference imageRef = storageRef.child("imagens").child("perfil").child(usuarioLogado.getId()+".jpeg");
+                    StorageReference imageRef = storageRef.child("imagens").child("perfil").child(identificadorUsuario + ".jpeg");
                     UploadTask uploadTask = imageRef.putBytes(dadosImagem);
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -131,15 +146,36 @@ public class EditarPerfilActivity extends AppCompatActivity {
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            //Recuperar local da foto
+                            Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                           // while(!uri.isComplete());
+                            Uri url = uri.getResult();
+
+                            atualizarFotoUsuario(url);
+
                             Toast.makeText(EditarPerfilActivity.this,"Sucesso ao fazer upload da imagem",Toast.LENGTH_SHORT).show();
                         }
                     });
+
 
                 }
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
+    }
+
+    private void atualizarFotoUsuario(Uri url){
+
+        //Atualizar foto no Firebase User
+        UsuarioFirebase.atualizarFotoUsuario(url);
+
+        //Atualizar foto no firebase
+        usuarioLogado.setCaminhofoto(url.toString());
+        usuarioLogado.atualizar();
+
+        Toast.makeText(EditarPerfilActivity.this,"Sua foto foi alterada",Toast.LENGTH_SHORT).show();
     }
 
     public void inicializarCompotentes(){
