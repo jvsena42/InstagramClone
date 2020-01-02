@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Usuario {
 
-    private String nome, email, senha, caminhofoto, id;
+    private String nome, email, senha, caminhoFoto, id;
 
     public Usuario() {
     }
@@ -66,11 +66,11 @@ public class Usuario {
     }
 
     public String getCaminhofoto() {
-        return caminhofoto;
+        return caminhoFoto;
     }
 
-    public void setCaminhofoto(String caminhofoto) {
-        this.caminhofoto = caminhofoto;
+    public void setCaminhofoto(String caminhoFoto) {
+        this.caminhoFoto = caminhoFoto;
     }
 
     public String getId() {

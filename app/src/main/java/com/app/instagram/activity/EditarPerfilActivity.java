@@ -149,7 +149,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
                             //Recuperar local da foto
                             Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-                           // while(!uri.isComplete());
+                            while(!uri.isComplete());
                             Uri url = uri.getResult();
 
                             atualizarFotoUsuario(url);
