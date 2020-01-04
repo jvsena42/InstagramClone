@@ -53,7 +53,7 @@
             android:paddingTop="5dp" />
 
         <Button
-            android:id="@+id/buttonSalvarAlteracoes"
+            android:id="@+id/buttonAcaoPerfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"

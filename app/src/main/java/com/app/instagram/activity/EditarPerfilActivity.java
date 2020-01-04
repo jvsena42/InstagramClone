@@ -21,18 +21,14 @@ import com.app.instagram.helper.ConfiguracaoFirebase;
 import com.app.instagram.helper.UsuarioFirebase;
 import com.app.instagram.model.Usuario;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.net.URL;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -183,7 +179,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         textAlterarFoto = findViewById(R.id.textAlterarFoto);
         editNomePerfil = findViewById(R.id.editNomeEditarPerfil);
         editEmailPerfil = findViewById(R.id.editEmailEditarPerfil);
-        buttonSalvarAlteracoes = findViewById(R.id.buttonSalvarAlteracoes);
+        buttonSalvarAlteracoes = findViewById(R.id.buttonAcaoPerfil);
         editEmailPerfil.setFocusable(false);
     }
 
