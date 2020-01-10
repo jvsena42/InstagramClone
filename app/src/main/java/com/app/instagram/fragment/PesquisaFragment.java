@@ -21,6 +21,7 @@ import com.app.instagram.activity.PerfilAmigoActivity;
 import com.app.instagram.adapter.AdapterPesquisa;
 import com.app.instagram.helper.ConfiguracaoFirebase;
 import com.app.instagram.helper.RecyclerItemClickListener;
+import com.app.instagram.helper.UsuarioFirebase;
 import com.app.instagram.model.Usuario;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,6 +42,7 @@ public class PesquisaFragment extends Fragment {
     private List<Usuario> listaUsuarios;
     private DatabaseReference usuariosRef;
     private AdapterPesquisa adapterPesquisa;
+    private String idUsuarioLogado;
 
     public PesquisaFragment() {
         // Required empty public constructor
@@ -56,6 +58,7 @@ public class PesquisaFragment extends Fragment {
         //Configuracoes iniciais
         listaUsuarios = new ArrayList<>();
         usuariosRef = ConfiguracaoFirebase.getFirebaseDatabase().child("usuarios");
+        idUsuarioLogado = UsuarioFirebase.getIdUsuario();
 
         searchViewPesquisa = view.findViewById(R.id.searchViewPesquisa);
         recyclerPesquisa = view.findViewById(R.id.recyclerPesquisa);
@@ -127,7 +130,12 @@ public class PesquisaFragment extends Fragment {
                     listaUsuarios.clear();
 
                     for (DataSnapshot ds : dataSnapshot.getChildren()){
-                        listaUsuarios.add(ds.getValue(Usuario.class));
+
+                        Usuario usuario = ds.getValue(Usuario.class);
+                        if (usuario.getId().equals(idUsuarioLogado))
+                            continue;
+
+                        listaUsuarios.add(usuario);
                     }
                     adapterPesquisa.notifyDataSetChanged();
                 }
