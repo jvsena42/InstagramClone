@@ -178,7 +178,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         UsuarioFirebase.atualizarFotoUsuario(url);
 
         //Atualizar foto no firebase
-        usuarioLogado.setCaminhofoto(url.toString());
+        usuarioLogado.setCaminhoFoto(url.toString());
         usuarioLogado.atualizar();
 
         Toast.makeText(EditarPerfilActivity.this,"Sua foto foi alterada",Toast.LENGTH_SHORT).show();

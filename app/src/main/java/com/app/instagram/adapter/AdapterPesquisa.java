@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,8 +43,8 @@ public class AdapterPesquisa extends RecyclerView.Adapter<AdapterPesquisa.MyView
         Usuario usuario = listaUsuario.get(position);
         holder.nome.setText(usuario.getNome());
 
-        if (usuario.getCaminhofoto() != null){
-            Uri uri = Uri.parse(usuario.getCaminhofoto());
+        if (usuario.getCaminhoFoto() != null){
+            Uri uri = Uri.parse(usuario.getCaminhoFoto());
             Glide.with(context).load(uri).into(holder.foto);
         }else {
             holder.foto.setImageResource(R.drawable.avatar);

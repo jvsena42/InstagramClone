@@ -21,9 +21,7 @@ public class Usuario implements Serializable {
     public void salvar(){
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
         DatabaseReference usuariosRef = firebaseRef.child("usuarios").child(getId());
-
         usuariosRef.setValue(this);
-
     }
 
     public void atualizar(){
@@ -39,7 +37,7 @@ public class Usuario implements Serializable {
         usuarioMap.put("email",getEmail());
         usuarioMap.put("nome",getNome());
         usuarioMap.put("id",getId());
-        usuarioMap.put("caminhoFoto",getCaminhofoto());
+        usuarioMap.put("caminhoFoto", getCaminhoFoto());
         usuarioMap.put("seguidores",getSeguidores());
         usuarioMap.put("seguindo",getSeguindo());
         usuarioMap.put("postagens",getPostagens());
@@ -96,11 +94,11 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public String getCaminhofoto() {
+    public String getCaminhoFoto() {
         return caminhoFoto;
     }
 
-    public void setCaminhofoto(String caminhoFoto) {
+    public void setCaminhoFoto(String caminhoFoto) {
         this.caminhoFoto = caminhoFoto;
     }
 
