@@ -16,7 +16,7 @@ public class Postagem {
 
     private String id;
     private String idUsuario;
-    private String Descricao;
+    private String descricao;
     private String caminhoFoto;
 
     public Postagem() {
@@ -52,11 +52,11 @@ public class Postagem {
     }
 
     public String getDescricao() {
-        return Descricao;
+        return descricao;
     }
 
     public void setDescricao(String descricao) {
-        Descricao = descricao;
+        this.descricao = descricao;
     }
 
     public String getCaminhoFoto() {

@@ -36,7 +36,7 @@ public class AdapterGrid extends ArrayAdapter<String> {
 
     //Cria classe View Holder
     public class ViewHolder {
-        ImageView imagem;
+        ImageView imageGridPerfil;
         ProgressBar progressBar;
     }
 
@@ -51,7 +51,7 @@ public class AdapterGrid extends ArrayAdapter<String> {
             viewHolder = new ViewHolder();
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(layoutResource, parent, false);
-            viewHolder.imagem = convertView.findViewById(R.id.imageGridPerfil);
+            viewHolder.imageGridPerfil = convertView.findViewById(R.id.imageGridPerfil);
             viewHolder.progressBar = convertView.findViewById(R.id.progressGridPerfil);
 
             convertView.setTag( viewHolder );
@@ -63,7 +63,7 @@ public class AdapterGrid extends ArrayAdapter<String> {
         //Recuperar dados da imagem
         String urlImagem = getItem(position);
         ImageLoader imageLoader = ImageLoader.getInstance();
-        imageLoader.displayImage(urlImagem, viewHolder.imagem,
+        imageLoader.displayImage(urlImagem, viewHolder.imageGridPerfil,
                 new ImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String imageUri, View view) {
@@ -72,8 +72,7 @@ public class AdapterGrid extends ArrayAdapter<String> {
 
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        viewHolder.progressBar.setVisibility(View.GONE);
-                        viewHolder.imagem.setImageResource(R.drawable.avatar);
+
                     }
 
                     @Override
@@ -83,7 +82,7 @@ public class AdapterGrid extends ArrayAdapter<String> {
 
                     @Override
                     public void onLoadingCancelled(String imageUri, View view) {
-                        viewHolder.progressBar.setVisibility(View.GONE);
+
                     }
                 });
 
