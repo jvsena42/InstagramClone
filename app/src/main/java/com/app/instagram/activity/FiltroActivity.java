@@ -239,7 +239,7 @@ public class FiltroActivity extends AppCompatActivity {
                     Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
                     while(!uri.isComplete());
                     Uri url = uri.getResult();
-                    postagem.setCaminhoFoto(uri.toString());
+                    postagem.setCaminhoFoto(url.toString());
 
                     //Salvar postagem
                     if (postagem.salvar()){

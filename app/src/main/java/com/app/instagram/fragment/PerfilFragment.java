@@ -68,7 +68,6 @@ public class PerfilFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
         //Configurações iniciais
-        usuarioLogado = new Usuario();
         firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
         usuariosRef = firebaseRef.child("usuarios");
         usuarioLogado = UsuarioFirebase.getDadosUsuarioLogado();
