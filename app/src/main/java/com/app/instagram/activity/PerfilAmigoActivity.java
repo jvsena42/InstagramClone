@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -52,6 +54,8 @@ public class PerfilAmigoActivity extends AppCompatActivity {
     private ValueEventListener valueEventListenerPerfilAmigo;
     private TextView textPublicacoes, textSeguidores, textSeguindo;
     private String idUsuarioLogado;
+
+    private List<Postagem> postagens;
 
 
     @Override
@@ -104,6 +108,21 @@ public class PerfilAmigoActivity extends AppCompatActivity {
         //Carregar as fotos das postagens de um usuario
         carregarFotosPostagem();
 
+        //Abrir foto clicada
+        gridViewPerfil.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Postagem postagem = postagens.get(position);
+                Intent i = new Intent(getApplicationContext(),VisualizarPostagemActivity.class);
+
+                i.putExtra("postagem",postagem);
+                i.putExtra("usuario",usuarioSelecionado);
+
+                startActivity(i);
+            }
+        });
+
     }
 
     public void inicializarImageLoader(){
@@ -119,6 +138,7 @@ public class PerfilAmigoActivity extends AppCompatActivity {
     public void carregarFotosPostagem(){
 
         //Recuperar as fotos postadas pelo usuário
+        postagens = new ArrayList<>();
         postagensUsuarioRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -132,6 +152,7 @@ public class PerfilAmigoActivity extends AppCompatActivity {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
 
                     Postagem postagem = dataSnapshot.getValue(Postagem.class);
+                    postagens.add(postagem);
                     urlFotos.add(postagem.getCaminhoFoto());
                 }
 

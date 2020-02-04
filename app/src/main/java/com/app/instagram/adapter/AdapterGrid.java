@@ -27,16 +27,13 @@ public class AdapterGrid extends ArrayAdapter<String> {
 
     public AdapterGrid(@NonNull Context context, int resource, @NonNull List<String> objects) {
         super(context, resource, objects);
-
         this.context = context;
         this.layoutResource = resource;
         this.urlFotos = objects;
-
     }
 
-    //Cria classe View Holder
     public class ViewHolder {
-        ImageView imageGridPerfil;
+        ImageView imagem;
         ProgressBar progressBar;
     }
 
@@ -44,14 +41,14 @@ public class AdapterGrid extends ArrayAdapter<String> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        //Caso a view não esteja inflada
         final ViewHolder viewHolder;
-        if (convertView == null){
+        //Caso a view não esteja inflada, precisamos inflar
+        if( convertView == null ){
 
             viewHolder = new ViewHolder();
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(layoutResource, parent, false);
-            viewHolder.imageGridPerfil = convertView.findViewById(R.id.imageGridPerfil);
+            viewHolder.imagem = convertView.findViewById(R.id.imageGridPerfil);
             viewHolder.progressBar = convertView.findViewById(R.id.progressGridPerfil);
 
             convertView.setTag( viewHolder );
@@ -60,29 +57,29 @@ public class AdapterGrid extends ArrayAdapter<String> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        //Recuperar dados da imagem
-        String urlImagem = getItem(position);
+        //Recupera dados da imagem
+        String urlImagem = getItem( position );
         ImageLoader imageLoader = ImageLoader.getInstance();
-        imageLoader.displayImage(urlImagem, viewHolder.imageGridPerfil,
+        imageLoader.displayImage(urlImagem, viewHolder.imagem,
                 new ImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String imageUri, View view) {
-                        viewHolder.progressBar.setVisibility(View.VISIBLE);
+                        viewHolder.progressBar.setVisibility( View.VISIBLE );
                     }
 
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
+                        viewHolder.progressBar.setVisibility( View.GONE );
                     }
 
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        viewHolder.progressBar.setVisibility(View.GONE);
+                        viewHolder.progressBar.setVisibility( View.GONE );
                     }
 
                     @Override
                     public void onLoadingCancelled(String imageUri, View view) {
-
+                        viewHolder.progressBar.setVisibility( View.GONE );
                     }
                 });
 
