@@ -27,12 +27,6 @@
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/avatar" />
 
-        <ProgressBar
-            android:id="@+id/progressFiltro"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <EditText
             android:id="@+id/textDescricaoFiltro"
             android:layout_width="match_parent"
