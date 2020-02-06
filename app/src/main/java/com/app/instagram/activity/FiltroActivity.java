@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,8 +60,10 @@ public class FiltroActivity extends AppCompatActivity {
     TextView textDescricaoFiltro;
     private AlertDialog dialog;
 
+    private DatabaseReference firebaseRef;
     private DatabaseReference usuariosRef;
     private DatabaseReference usuarioLogadoRef;
+    private DataSnapshot seguidoresSnapshot;
     private Usuario usuarioLogado;
 
     private RecyclerView recyclerFiltros;
@@ -76,15 +77,16 @@ public class FiltroActivity extends AppCompatActivity {
         //Configurações iniciais
         listaFiltros = new ArrayList<>();
         idUsuarioLogado = UsuarioFirebase.getIdUsuario();
-        usuariosRef = ConfiguracaoFirebase.getFirebaseDatabase().child("usuarios");
+        firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
+        usuariosRef = firebaseRef.child("usuarios");
 
         //Inicializar componentes
         imageFotoEscolhida = findViewById(R.id.imageFotoEscolhida);
         recyclerFiltros = findViewById(R.id.recyclerFiltros);
         textDescricaoFiltro = findViewById(R.id.textDescricaoFiltro);
 
-        //Recuperar dados do usuario logado
-        recuperarDadosUsuarioLogado();
+        //Recuperar dados para uma nova postagem
+        recuperarDadosPostagem();
 
         //Configurar Toolbar
         Toolbar toolbar = findViewById(R.id.toolbarPrincipal);
@@ -157,7 +159,7 @@ public class FiltroActivity extends AppCompatActivity {
 
     }
 
-    private void recuperarDadosUsuarioLogado(){
+    private void recuperarDadosPostagem(){
 
         abrirDialogCarregamento("Carregando dados, aguarde!");
         usuarioLogadoRef = usuariosRef.child(idUsuarioLogado);
@@ -165,8 +167,25 @@ public class FiltroActivity extends AppCompatActivity {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        //Recuperar dados usuário logado
                         usuarioLogado = dataSnapshot.getValue(Usuario.class);
-                        dialog.cancel();
+
+                        //Recuperar seguidores
+                        DatabaseReference seguidoresRef = firebaseRef.child("seguidores").child(idUsuarioLogado);
+                        seguidoresRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                seguidoresSnapshot = dataSnapshot;
+                                dialog.cancel();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
                     }
 
                     @Override
@@ -239,13 +258,13 @@ public class FiltroActivity extends AppCompatActivity {
                 Uri url = uri.getResult();
                 postagem.setCaminhoFoto(url.toString());
 
-                //Salvar postagem
-                if (postagem.salvar()){
+                //Atualizar quantidade de postagens
+                int qtdPostagens = usuarioLogado.getPostagens() +1;
+                usuarioLogado.setPostagens(qtdPostagens);
+                usuarioLogado.atualizarQtdPostagens();
 
-                    //Atualizar quantidade de postagens
-                    int qtdPostagens = usuarioLogado.getPostagens() +1;
-                    usuarioLogado.setPostagens(qtdPostagens);
-                    usuarioLogado.atualizarQtdPostagens();
+                //Salvar postagem
+                if (postagem.salvar(seguidoresSnapshot)){
 
                     Toast.makeText(FiltroActivity.this,"Sucesso ao fazer upload da postagem",Toast.LENGTH_SHORT).show();
                     dialog.cancel();
