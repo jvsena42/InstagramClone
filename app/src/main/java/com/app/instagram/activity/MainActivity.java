@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         //Configurar botton navigation
         configuraBottomNavigationView();
 
-
     }
 
     //Configurar Bottom Navigation

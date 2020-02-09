@@ -46,5 +46,8 @@ dependencies {
 
     //Universal Image Loader
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
+    //Like Button
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
 }
 apply plugin: 'com.google.gms.google-services'
