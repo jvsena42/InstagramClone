@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.LoginActivity"
+            android:theme="@style/AppThemeLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,21 +29,14 @@
         <activity android:name=".activity.FiltroActivity" />
         <activity android:name=".activity.VisualizarPostagemActivity" />
         <activity android:name=".activity.PerfilAmigoActivity" />
+        <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.EditarPerfilActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.CadastroActivity"
             android:theme="@style/AppThemeLogin" />
-        <activity
-            android:name=".activity.LoginActivity"
-            android:theme="@style/AppThemeLogin">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

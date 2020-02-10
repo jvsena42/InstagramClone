@@ -58,7 +58,7 @@ public class VisualizarPostagemActivity extends AppCompatActivity {
 
     private void inicializarComponentes(){
         textPerfilpostagem = findViewById(R.id.textPerfilPostagem);
-        textQtdCurtidasPostagens = findViewById(R.id.textQtdCurtidas);
+        textQtdCurtidasPostagens = findViewById(R.id.textQtdCurtidasPostagem);
         textDescricaoPostagem = findViewById(R.id.textDescricaoPostagem);
         imagePostagemSelecionada = findViewById(R.id.imagePostagemSelecionada);
         imagePerfilPostagem = findViewById(R.id.imagePerfilPostagem);

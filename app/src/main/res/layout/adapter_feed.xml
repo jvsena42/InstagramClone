@@ -45,7 +45,7 @@
         app:srcCompat="@drawable/avatar" />
 
     <TextView
-        android:id="@+id/textQtdCurtidas"
+        android:id="@+id/textQtdCurtidasPostagem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -73,7 +73,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textQtdCurtidas" />
+        app:layout_constraintTop_toBottomOf="@+id/textQtdCurtidasPostagem" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -97,7 +97,7 @@
             app:icon_type="heart" />
 
         <ImageView
-            android:id="@+id/comentarioButtonFeed"
+            android:id="@+id/imageComentarioFeed"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="16dp"
