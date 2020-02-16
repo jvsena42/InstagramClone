@@ -130,7 +130,6 @@ public class ComentariosActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-
         finish();
         return false;
     }
