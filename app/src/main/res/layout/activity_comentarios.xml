@@ -19,6 +19,7 @@
         android:padding="5dp">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerComentarios"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -49,6 +50,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@android:drawable/screen_background_light_transparent"
+                android:onClick="salvarComentario"
                 app:srcCompat="@drawable/ic_send_black_24dp" />
 
         </LinearLayout>

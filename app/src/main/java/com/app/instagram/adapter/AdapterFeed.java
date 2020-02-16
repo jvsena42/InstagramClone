@@ -102,7 +102,7 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
                 if (dataSnapshot.hasChild(usuarioLogado.getId())) {
                    holder.likeButton.setLiked(true);
                 }else {
-                    holder.likeButton.setLiked(true);
+                    holder.likeButton.setLiked(false);
                 }
 
                 //Montar o objeto postagem curtida
